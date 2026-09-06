@@ -7,13 +7,16 @@ from overlap_io import (
     save_city_overlap_cache,
 )
 
-PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR"))
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT))
+
 # ============================================================
 # CONFIGURACIÓN MANUAL
 # ============================================================
 
-OVERLAP_ROOT = Path(os.environ.get("OVERLAP_ROOT", PROJECT_ROOT / "overlaps" / "VGGT_Overlap"))
-CACHE_DIR = Path(os.environ.get("CACHE_DIR", PROJECT_ROOT / "Overlap_cache" ))
+OVERLAP_ROOT = Path(os.environ.get("OVERLAP_ROOT", PROJECT_ROOT / "overlaps" / "vggt"))
+CACHE_DIR = Path(os.environ.get("CACHE_DIR", PROJECT_ROOT / "overlap_cache" ))
 
 # Opciones:
 #   ["all"] para todas las ciudades encontradas en OVERLAP_ROOT
