@@ -2,7 +2,12 @@ import os
 import sys
 from pathlib import Path
 
-PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR"))
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(
+    os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT)
+)
+
 
 # Clonar la librería oficial de Mapillary SLS y modificar msls.py
 
@@ -102,7 +107,7 @@ val_transform = transforms.Compose([
 
 # DATASET DE ENTRENAMIENTO: TODAS LAS CIUDADES TRAIN DE MSLS
 
-MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "mapillary"))
+MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "msls"))
 if not MSLS_ROOT.exists():
     raise FileNotFoundError(f"No se encuentra el dataset MSLS en: {MSLS_ROOT}")
 
@@ -135,8 +140,8 @@ print("cached_negatives:", train_dataset.cached_negatives)
 
 # Funciones para extraer los overlaps
 
-OVERLAP_ROOT = Path(os.environ.get("OVERLAP_ROOT", PROJECT_ROOT / "overlaps" / "VGGT_Overlap"))
-POSITIVES_ROOT =  Path(os.environ.get("POSITIVESTRAIN_ROOT", PROJECT_ROOT / "positives" / "train"))
+OVERLAP_ROOT = Path(os.environ.get("OVERLAP_ROOT", PROJECT_ROOT / "overlaps" / "vggt"))
+POSITIVES_ROOT =  Path(os.environ.get("TRAIN_POSITIVES_ROOT", PROJECT_ROOT / "positives" / "train"))
 
 TRAIN_CITIES_LIST = train_cities.split(",")
 
@@ -1023,7 +1028,7 @@ def validate_vpr_citywise(
 
 # DIRECTORIOS Y ARCHIVOS DE SALIDA
 
-OUTPUT_DIR = Path(os.environ.get("OUTPUT_OVERLAP2_ROOT", PROJECT_ROOT / "outputs"/ "Resultados_O"))
+OUTPUT_DIR = Path(os.environ.get("OUTPUT_OVERLAP2_ROOT", PROJECT_ROOT / "outputs" / "continuous"))
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CHECKPOINT_DIR = OUTPUT_DIR / "checkpoints"
