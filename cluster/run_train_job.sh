@@ -10,7 +10,7 @@ cd /workspace/mhernang/VPR
 
 # Paths used by the Python scripts
 export PROJECT_ROOT=/workspace/mhernang/VPR
-export MSLS_ROOT=/workspace/mhernang/VPR/data/mapillary
+export MSLS_ROOT=/data/msls
 export POSITIVES_ROOT=/workspace/mhernang/VPR/positives
 export POSITIVESTRAIN_ROOT=/workspace/mhernang/VPR/positives/train
 export OVERLAP_ROOT=/workspace/mhernang/VPR/overlaps/VGGT_Overlap
