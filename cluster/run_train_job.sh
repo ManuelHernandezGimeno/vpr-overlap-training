@@ -6,29 +6,48 @@ set -e
 source /opt/conda/etc/profile.d/conda.sh
 conda activate tfg_vpr
 
-cd /workspace/mhernang/VPR
+PROJECT_ROOT=/workspace/vpr-overlap-training
+cd "${PROJECT_ROOT}"
 
 # Paths used by the Python scripts
-export PROJECT_ROOT=/workspace/mhernang/VPR
+export PROJECT_ROOT=/workspace/vpr-overlap-training
 export MSLS_ROOT=/data/msls
-export POSITIVES_ROOT=/workspace/mhernang/VPR/positives
-export POSITIVESTRAIN_ROOT=/workspace/mhernang/VPR/positives/train
-export OVERLAP_ROOT=/workspace/mhernang/VPR/overlaps/VGGT_Overlap
-export CACHE_DIR=/workspace/mhernang/VPR/Overlap_cache
-export PLOTS_DIR=/workspace/mhernang/VPR/Overlap_cache/plots
-export OVERLAP2D_ROOT=/workspace/mhernang/VPR/overlaps/Overlap_2D
-export OUTPUTNEW2_ROOT=/workspace/mhernang/VPR/outputs/Resultados
-export OUTPUT_OVERLAP2_ROOT=/workspace/mhernang/VPR/outputs/Resultados_O
-export OUTPUT_OVERLAP_BINARIO2_ROOT=/workspace/mhernang/VPR/outputs/Resultados_O_binario
-export OUTPUT_OVERLAP_2D2_ROOT=/workspace/mhernang/VPR/outputs/Resultados_O_2D
-export HF_HOME=/workspace/mhernang/VPR/.cache/huggingface
-export TORCH_HOME=/workspace/mhernang/VPR/.cache/torch
+
+export POSITIVES_ROOT=${PROJECT_ROOT}/positives
+export TRAIN_POSITIVES_ROOT=${PROJECT_ROOT}/positives/train
+
+export OVERLAP_ROOT=${PROJECT_ROOT}/overlaps/vggt
+export OVERLAP2D_ROOT=${PROJECT_ROOT}/overlaps/2d
+
+export OUTPUTNEW2_ROOT=${PROJECT_ROOT}/outputs/baseline
+export OUTPUT_OVERLAP2_ROOT=${PROJECT_ROOT}/outputs/continuous
+export OUTPUT_OVERLAP_BINARIO2_ROOT=${PROJECT_ROOT}/outputs/binary
+export OUTPUT_OVERLAP_2D2_ROOT=${PROJECT_ROOT}/outputs/overlap_2d
+
+export HF_HOME=${PROJECT_ROOT}/.cache/huggingface
+export TORCH_HOME=${PROJECT_ROOT}/.cache/torch
+
 export VGGT_ROOT=/opt/vggt
 export MAPILLARY_SLS_ROOT=/opt/mapillary_sls
-export PYTHONPATH=/opt/vggt:/opt/mapillary_sls:/workspace/mhernang/VPR/code:/workspace/mhernang/VPR:${PYTHONPATH}
+
+export PYTHONPATH=/opt/vggt:/opt/mapillary_sls:${PROJECT_ROOT}/src:${PROJECT_ROOT}/src/analysis:${PROJECT_ROOT}:${PYTHONPATH:-}
 export PYTHONUNBUFFERED=1
 
-mkdir -p slurm_jobs outputs positives/train positives/val overlaps/VGGT_Overlap overlaps/Overlap_2D data .cache/huggingface .cache/torch
+mkdir -p \
+    slurm_jobs \
+    outputs/baseline \
+    outputs/continuous \
+    outputs/binary \
+    outputs/overlap_2d \
+    positives/train \
+    positives/val \
+    overlaps/vggt \
+    overlaps/2d \
+    overlap_cache \
+    overlap_cache/plots \
+    .cache/huggingface \
+    .cache/torch
+
 
 # Script to run. Default can be changed, or passed from sbatch:
 # sbatch train.sh code/train_overlap_continuo.py
@@ -36,14 +55,14 @@ if [ "$#" -gt 0 ]; then
     TRAIN_SCRIPT="$1"
     shift
 else
-    TRAIN_SCRIPT="code/calcular_positivos_msls.py"
+    TRAIN_SCRIPT="src/training/train_baseline.py"
 fi
 
 if [ ! -f "$TRAIN_SCRIPT" ]; then
     echo "ERROR: training script not found: $TRAIN_SCRIPT"
     echo "Current folder: $(pwd)"
     echo "Available files in code/:"
-    ls -lah code || true
+    ls -lah src || true
     exit 1
 fi
 
