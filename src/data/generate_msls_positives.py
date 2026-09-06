@@ -15,7 +15,11 @@
 import os
 from pathlib import Path
 
-PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR"))
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(
+    os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT)
+)
 
 from os.path import join
 import math
@@ -36,7 +40,7 @@ from PIL import Image
 # ============================================================
 
 # Carpeta raíz del dataset
-ROOT_DIR = Path(os.environ.get("MSLS_ROOT", "/workspace/mhernang/VPR/data/mapillary"))
+ROOT_DIR = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "msls"))
 if not ROOT_DIR.exists():
     raise FileNotFoundError(f"No se encuentra el dataset MSLS en: {ROOT_DIR}")
 
