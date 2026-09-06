@@ -19,8 +19,8 @@ CACHE_DIR = Path(
     os.environ.get("CACHE_DIR", PROJECT_ROOT / "overlap_cache")
 )
 
-OUTPUT_DIR = CACHE_DIR / "Analisis_global"
-OUTPUT_CSV = OUTPUT_DIR / "resumen_global_ciudades.csv"
+OUTPUT_DIR = CACHE_DIR / "global_analysis"
+OUTPUT_CSV = OUTPUT_DIR / "global_city_summary.csv"
 
 # Opciones:
 #   ["all"] para analizar todas las ciudades con overlaps_<ciudad>.pkl
