@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Environments
+.venv/
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Caches
+.cache/
+Overlap_cache/
+overlap_cache/
+
+# Dataset
+data/
+datasets/
+
+# Generated positives and overlaps
+positives/
+overlaps/
+
+# Training outputs
+outputs/
+checkpoints/
+*.ckpt
+*.pth
+*.pt
+
+# SLURM
+slurm_jobs/
+slurm-*.out
+slurm-*.err
+
+# Containers
+*.sqsh
+*.sif
+
+# Temporary files
+*.log
+*.tmp
