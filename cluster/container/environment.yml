@@ -1,0 +1,8 @@
+name: tfg_vpr
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10.13
+  - pip
