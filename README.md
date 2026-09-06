@@ -60,6 +60,7 @@ vpr-overlap-training/
 │       └── generate_qualitative_retrievals.py
 ├── cluster/
 │   ├── submit_train.sh
+│   ├── submit_analysis.sh
 │   ├── run_train_job.sh
 │   ├── run_analysis_job.sh
 │   └── container/
