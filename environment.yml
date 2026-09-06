@@ -23,6 +23,8 @@ dependencies:
   - utm
   - pyparsing
   - termcolor
+  - scikit-learn
+  - shapely
   - pip
   - pip:
       - pytorch-lightning==2.1.2
