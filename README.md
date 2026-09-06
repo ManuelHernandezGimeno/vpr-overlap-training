@@ -39,7 +39,6 @@ vpr-overlap-training/
 ├── CITATION.cff
 ├── THIRD_PARTY.md
 ├── CONTRIBUTING.md
-├── environment.yml
 ├── .gitignore
 ├── config/
 │   └── env.example
