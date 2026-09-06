@@ -88,7 +88,7 @@ ENV PYTHONPATH=/opt/vggt:/opt/mapillary_sls:$PYTHONPATH
 # --------------------------------------------------------
 # Runtime settings
 # --------------------------------------------------------
-RUN mkdir -p /workspace/mhernang/VPR
-WORKDIR /workspace/mhernang/VPR
+RUN mkdir -p /workspace/vpr-overlap-training
+WORKDIR /workspace/vpr-overlap-training
 
 CMD ["/bin/bash"]
