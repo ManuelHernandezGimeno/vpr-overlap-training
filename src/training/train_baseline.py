@@ -2,7 +2,12 @@ import os
 import sys
 from pathlib import Path
 
-PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR"))
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(
+    os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT)
+)
+
 
 # Localizar la librería oficial de Mapillary SLS y modificar msls.py
 
@@ -103,7 +108,7 @@ val_transform = transforms.Compose([
 
 # DATASET DE ENTRENAMIENTO: TODAS LAS CIUDADES TRAIN DE MSLS
 # Carpeta raíz del dataset MSLS con las imágenes originales
-MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "mapillary"))
+MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "msls"))
 if not MSLS_ROOT.exists():
     raise FileNotFoundError(f"No se encuentra el dataset MSLS en: {MSLS_ROOT}")
 
@@ -668,7 +673,7 @@ def validate_vpr_citywise(
 
 # DIRECTORIOS Y ARCHIVOS DE SALIDA
 
-OUTPUT_DIR = Path(os.environ.get("OUTPUTNEW2_ROOT", PROJECT_ROOT / "outputs"/ "Resultados" ))
+OUTPUT_DIR = Path(os.environ.get("OUTPUTNEW2_ROOT", PROJECT_ROOT / "outputs" / "baseline" ))
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CHECKPOINT_DIR = OUTPUT_DIR / "checkpoints"
