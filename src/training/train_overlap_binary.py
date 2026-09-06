@@ -1237,7 +1237,7 @@ def keep_last_n_checkpoints(checkpoint_dir, n_keep=10):
 # BUCLE DE ENTRENAMIENTO COMPLETO CON EARLY STOPPING
 # Configuración general
 max_epochs = 100
-patience = 20              # <- número de épocas para el criterio de parada
+patience = 10              # <- número de épocas para el criterio de parada
 min_delta = 0.001
 
 batch_size = 32
