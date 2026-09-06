@@ -48,8 +48,13 @@ vpr-overlap-training/
 │   │   └── generate_msls_positives.py
 │   ├── overlap/
 │   │   ├── compute_vggt_overlap.py
-│   │   ├── compute_2d_overlap.py
-│   │   ├── analyze_overlaps.py
+│   │   └── compute_2d_overlap.py
+│   ├── analysis/
+│   │   ├── city_summary.py
+│   │   ├── inspect_place.py
+│   │   ├── plot_city_distribution.py
+│   │   ├── read_overlaps.py
+│   │   ├── global_summary.py
 │   │   └── overlap_io.py
 │   ├── training/
 │   │   ├── train_baseline.py
