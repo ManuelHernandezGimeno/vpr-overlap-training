@@ -6,22 +6,29 @@ set -euo pipefail
 source /opt/conda/etc/profile.d/conda.sh
 conda activate tfg_vpr
 
-cd /workspace/mhernang/VPR
+cd /workspace/vpr-overlap-training
 
 # Paths used by the Python scripts
-export PROJECT_ROOT=/workspace/mhernang/VPR
+export PROJECT_ROOT=/workspace/vpr-overlap-training
 export MSLS_ROOT=/data/msls
-export POSITIVES_ROOT=/workspace/mhernang/VPR/positives
-export POSITIVESTRAIN_ROOT=/workspace/mhernang/VPR/positives/train
-export OVERLAP_ROOT=/workspace/mhernang/VPR/overlaps/VGGT_Overlap
-export CACHE_DIR=/workspace/mhernang/VPR/Overlap_cache
-export PLOTS_DIR=/workspace/mhernang/VPR/Overlap_cache/plots
-export OVERLAP2D_ROOT=/workspace/mhernang/VPR/overlaps/Overlap_2D
-export HF_HOME=/workspace/mhernang/VPR/.cache/huggingface
-export TORCH_HOME=/workspace/mhernang/VPR/.cache/torch
+
+export POSITIVES_ROOT=${PROJECT_ROOT}/positives
+export TRAIN_POSITIVES_ROOT=${PROJECT_ROOT}/positives/train
+
+export OVERLAP_ROOT=${PROJECT_ROOT}/overlaps/vggt
+export OVERLAP2D_ROOT=${PROJECT_ROOT}/overlaps/2d
+
+export CACHE_DIR=${PROJECT_ROOT}/overlap_cache
+export PLOTS_DIR=${PROJECT_ROOT}/overlap_cache/plots
+
+export HF_HOME=${PROJECT_ROOT}/.cache/huggingface
+export TORCH_HOME=${PROJECT_ROOT}/.cache/torch
+
 export VGGT_ROOT=/opt/vggt
 export MAPILLARY_SLS_ROOT=/opt/mapillary_sls
-export PYTHONPATH=/opt/vggt:/opt/mapillary_sls:/workspace/mhernang/VPR/code/Analisis_overlaps:/workspace/mhernang/VPR/code:/workspace/mhernang/VPR:${PYTHONPATH:-}
+
+export PYTHONPATH=/opt/vggt:/opt/mapillary_sls:${PROJECT_ROOT}/src:${PROJECT_ROOT}/src/analysis:${PROJECT_ROOT}:${PYTHONPATH:-}
+
 export PYTHONUNBUFFERED=1
 export MPLBACKEND=Agg
 
@@ -36,18 +43,18 @@ if [ "$#" -gt 0 ]; then
     ANALYSIS_SCRIPT="$1"
     shift
 else
-    ANALYSIS_SCRIPT="code/Analisis_overlaps/Leer_overlaps.py"
+    ANALYSIS_SCRIPT="src/analysis/read_overlaps.py"
 fi
 
 if [ ! -f "${ANALYSIS_SCRIPT}" ]; then
     echo "ERROR: no se encuentra el script: ${ANALYSIS_SCRIPT}"
     echo "Archivos disponibles:"
-    ls -lah code || true
+    ls -lah src/analysis || true
     exit 1
 fi
 
-if [ ! -f "code/Analisis_overlaps/overlap_io.py" ]; then
-    echo "ERROR: falta code/Analisis_overlaps/overlap_io.py"
+if [ ! -f "src/analysis/overlap_io.py" ]; then
+    echo "ERROR: falta src/analysis/overlap_io.py"
     exit 1
 fi
 
@@ -56,9 +63,9 @@ cp "${ANALYSIS_SCRIPT}" \
     "slurm_jobs/$(basename "${ANALYSIS_SCRIPT}" .py)_${SLURM_JOB_ID}.py" \
     || true
 
-cp "code/Analisis_overlaps/overlap_io.py" \
-    "slurm_jobs/overlap_io_${SLURM_JOB_ID}.py" \
-    || true
+cp "src/analysis/overlap_io.py" \
+   "slurm_jobs/overlap_io_${SLURM_JOB_ID}.py" \
+   || true
 
 echo "========================================"
 echo "Job ID: ${SLURM_JOB_ID}"
