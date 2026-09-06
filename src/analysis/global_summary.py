@@ -10,12 +10,13 @@ import pandas as pd
 # CONFIGURACIÓN MANUAL
 # ============================================================
 
-PROJECT_ROOT = Path(
-    os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR")
-)
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT))
+
 
 CACHE_DIR = Path(
-    os.environ.get("CACHE_DIR", PROJECT_ROOT / "Overlap_cache")
+    os.environ.get("CACHE_DIR", PROJECT_ROOT / "overlap_cache")
 )
 
 OUTPUT_DIR = CACHE_DIR / "Analisis_global"
