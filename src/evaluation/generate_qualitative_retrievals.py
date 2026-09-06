@@ -20,8 +20,13 @@ from torchvision.models import resnet50
 # CONFIGURACION
 # ============================================================
 
-PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR"))
-MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "mapillary"))
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(
+    os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT)
+)
+
+MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "msls"))
 MAPILLARY_SLS_ROOT = Path(os.environ.get("MAPILLARY_SLS_ROOT", "/opt/mapillary_sls"))
 
 VAL_CITIES = ["cph", "sf"]
@@ -40,11 +45,11 @@ NUM_WORKERS = 16
 
 RANDOM_SEED = 42
 
-OUTPUT_DIR = PROJECT_ROOT / "outputs" / "analisis_cualitativo_recuperaciones"
+OUTPUT_DIR = PROJECT_ROOT / "outputs" / "qualitative_retrievals"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CHECKPOINT_CANDIDATES = [
-    PROJECT_ROOT / "outputs" / "Resultados_O" / "best_model.ckpt"
+    PROJECT_ROOT / "outputs" / "continuous" / "best_model.ckpt"
 ]
 
 CHECKPOINT_FILE = None
