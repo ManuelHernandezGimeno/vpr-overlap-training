@@ -1228,7 +1228,7 @@ def keep_last_n_checkpoints(checkpoint_dir, n_keep=10):
 
 # Configuración general
 max_epochs = 100
-patience = 20            # <- número de épocas para el criterio de parada
+patience = 10            # <- número de épocas para el criterio de parada
 min_delta = 0.001
 
 batch_size = 32
@@ -1237,8 +1237,8 @@ ks = [1, 5, 10]
 
 descriptor_batch_size = 512
 distance_batch_size = 512
-num_workers_train = 8
-num_workers_val = 8
+num_workers_train = 16
+num_workers_val = 16
 
 num_val_queries=None
 num_val_db=None
