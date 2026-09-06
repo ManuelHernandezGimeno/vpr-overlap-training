@@ -12,7 +12,12 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from shapely.geometry import Polygon
 
-PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR"))
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(
+    os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT)
+)
+
 VGGT_ROOT = os.environ.get("VGGT_ROOT", "/opt/vggt")
 sys.path.append(VGGT_ROOT)
 
@@ -39,15 +44,15 @@ model.eval()
 # CONFIGURACIÓN
 
 # Carpeta raíz del dataset MSLS con las imágenes originales
-MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "mapillary"))
+MSLS_ROOT = Path(os.environ.get("MSLS_ROOT", PROJECT_ROOT / "data" / "msls"))
 if not MSLS_ROOT.exists():
     raise FileNotFoundError(f"No se encuentra el dataset MSLS en: {MSLS_ROOT}")
 
 # Carpeta donde están las subcarpetas por ciudad con positives_train.npy
-POSITIVES_ROOT = Path(os.environ.get("POSITIVESTRAIN_ROOT", PROJECT_ROOT / "positives" / "train"))
+POSITIVES_ROOT = Path(os.environ.get("TRAIN_POSITIVES_ROOT", PROJECT_ROOT / "positives" / "train"))
 
 # Carpeta donde se guardarán profundidades, intrínsecos y resultados
-OUTPUT_ROOT = Path(os.environ.get("OVERLAP2D_ROOT", PROJECT_ROOT / "overlaps" / "Overlap_2D"))
+OUTPUT_ROOT = Path(os.environ.get("OVERLAP2D_ROOT", PROJECT_ROOT / "overlaps" / "2d"))
 
 MAX_IMAGES_PER_BLOCK = 20
 MAX_FOV_DISTANCE = 25
