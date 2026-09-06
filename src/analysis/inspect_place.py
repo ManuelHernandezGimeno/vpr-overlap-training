@@ -5,12 +5,15 @@ import os
 
 from overlap_io import load_city_overlap_cache
 
-PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", "/workspace/mhernang/VPR"))
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+PROJECT_ROOT = Path(os.environ.get("PROJECT_ROOT", DEFAULT_PROJECT_ROOT))
+
 
 # ============================================================
 # CONFIGURACIÓN MANUAL
 # ============================================================
-CACHE_DIR = Path(os.environ.get("CACHE_DIR", PROJECT_ROOT / "Overlap_cache" ))
+CACHE_DIR = Path(os.environ.get("CACHE_DIR", PROJECT_ROOT / "overlap_cache" ))
 
 CITY = "amsterdam"
 PLACE_ID = 641
