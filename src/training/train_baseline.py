@@ -21,27 +21,6 @@ if not MAPILLARY_SLS_ROOT.exists():
         "Debe estar clonado en el Docker o montado en el proyecto."
     )
 
-msls_file = MAPILLARY_SLS_ROOT / "mapillary_sls" / "datasets" / "msls.py"
-
-if not msls_file.exists():
-    raise FileNotFoundError(f"No se encuentra msls.py en: {msls_file}")
-
-text = msls_file.read_text()
-
-text = text.replace(
-    "self.pIdx = np.asarray(self.pIdx)",
-    "self.pIdx = np.asarray(self.pIdx, dtype=object)"
-)
-
-text = text.replace(
-    "self.nonNegIdx = np.asarray(self.nonNegIdx)",
-    "self.nonNegIdx = np.asarray(self.nonNegIdx, dtype=object)"
-)
-
-msls_file.write_text(text)
-
-print("msls.py modificado correctamente")
-
 # Añadir repo al path
 sys.path.insert(0, str(MAPILLARY_SLS_ROOT))
 
