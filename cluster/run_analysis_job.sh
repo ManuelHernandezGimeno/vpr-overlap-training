@@ -33,7 +33,7 @@ export PYTHONUNBUFFERED=1
 export MPLBACKEND=Agg
 
 mkdir -p \
-    /workspace/mhernang/VPR/slurm_jobs \
+    "${PROJECT_ROOT}/slurm_jobs" \
     "${CACHE_DIR}" \
     "${PLOTS_DIR}"
 
