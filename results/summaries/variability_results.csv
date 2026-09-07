@@ -1,4 +1,4 @@
-experiment,method,best_epoch,recall_at_1,recall_at_5,recall_at_10
+experiment,method,recall_at_1,recall_at_5,recall_at_10
 experiment_1,baseline,,65.5,77.3,78.7
 experiment_1,continuous_overlap,,68.1,79.3,83.7
 experiment_1,binary_overlap,,68.5,78.5,81.7
