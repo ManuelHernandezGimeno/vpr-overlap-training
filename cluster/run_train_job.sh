@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Expected workdir from SLURM: /workspace/mhernang/VPR
+# Expected workdir from SLURM: /workspace/vpr-overlap-training
 
 source /opt/conda/etc/profile.d/conda.sh
 conda activate tfg_vpr
