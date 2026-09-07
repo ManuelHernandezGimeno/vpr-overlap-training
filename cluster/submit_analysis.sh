@@ -18,7 +18,7 @@ CONTAINER_PROJECT_ROOT=/workspace/vpr-overlap-training
 
 CONTAINER_IMAGE="${CONTAINER_IMAGE:-${REPO_ROOT}/cluster/container/vpr-overlap-training+latest.sqsh}"
 
-mkdir -p ${USER_VPR_ROOT}/slurm_jobs
+mkdir -p "${REPO_ROOT}/slurm_jobs"
 
 if [ ! -f "${CONTAINER_IMAGE}" ]; then
     echo "ERROR: no se encuentra la imagen:"
