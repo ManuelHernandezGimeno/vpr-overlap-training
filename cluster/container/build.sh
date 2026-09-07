@@ -1,4 +1,9 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-docker build -t vpr-overlap-training:latest .
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+docker build \
+    -f "${SCRIPT_DIR}/Dockerfile" \
+    -t vpr-overlap-training:latest \
+    "${SCRIPT_DIR}"
