@@ -68,6 +68,7 @@ RUN bash -lc "source /opt/conda/etc/profile.d/conda.sh && \
         termcolor \
         pyproj \
         utm \
+        shapely \
         tensorboard \
         einops \
         huggingface-hub \
