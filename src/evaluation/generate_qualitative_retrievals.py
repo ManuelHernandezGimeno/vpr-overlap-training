@@ -78,29 +78,6 @@ if not MSLS_ROOT.exists():
 if not MAPILLARY_SLS_ROOT.exists():
     raise FileNotFoundError(f"No existe MAPILLARY_SLS_ROOT: {MAPILLARY_SLS_ROOT}")
 
-msls_file = MAPILLARY_SLS_ROOT / "mapillary_sls" / "datasets" / "msls.py"
-
-if not msls_file.exists():
-    raise FileNotFoundError(f"No se encuentra msls.py en: {msls_file}")
-
-text = msls_file.read_text()
-
-if "self.pIdx = np.asarray(self.pIdx, dtype=object)" not in text:
-    text = text.replace(
-        "self.pIdx = np.asarray(self.pIdx)",
-        "self.pIdx = np.asarray(self.pIdx, dtype=object)"
-    )
-
-if "self.nonNegIdx = np.asarray(self.nonNegIdx, dtype=object)" not in text:
-    text = text.replace(
-        "self.nonNegIdx = np.asarray(self.nonNegIdx)",
-        "self.nonNegIdx = np.asarray(self.nonNegIdx, dtype=object)"
-    )
-
-msls_file.write_text(text)
-
-print("msls.py preparado correctamente.")
-
 sys.path.insert(0, str(MAPILLARY_SLS_ROOT))
 
 from mapillary_sls.datasets.msls import MSLS
