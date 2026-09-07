@@ -38,7 +38,7 @@ mkdir -p \
     "${PLOTS_DIR}"
 
 # Script to run. Default can be changed, or passed from sbatch:
-# sbatch analysis.sh code/Analisis_overlaps/Leer_overlaps.py
+# sbatch cluster/submit_analysis.sh src/analysis/read_overlaps.py
 if [ "$#" -gt 0 ]; then
     ANALYSIS_SCRIPT="$1"
     shift
