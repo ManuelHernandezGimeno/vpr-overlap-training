@@ -61,7 +61,7 @@ fi
 if [ ! -f "$TRAIN_SCRIPT" ]; then
     echo "ERROR: training script not found: $TRAIN_SCRIPT"
     echo "Current folder: $(pwd)"
-    echo "Available files in code/:"
+    echo "Available files in src/:"
     ls -lah src || true
     exit 1
 fi
