@@ -19,10 +19,10 @@ export TRAIN_POSITIVES_ROOT=${PROJECT_ROOT}/positives/train
 export OVERLAP_ROOT=${PROJECT_ROOT}/overlaps/vggt
 export OVERLAP2D_ROOT=${PROJECT_ROOT}/overlaps/2d
 
-export OUTPUTNEW2_ROOT=${PROJECT_ROOT}/outputs/baseline
-export OUTPUT_OVERLAP2_ROOT=${PROJECT_ROOT}/outputs/continuous
-export OUTPUT_OVERLAP_BINARIO2_ROOT=${PROJECT_ROOT}/outputs/binary
-export OUTPUT_OVERLAP_2D2_ROOT=${PROJECT_ROOT}/outputs/overlap_2d
+export OUTPUTNEW2_ROOT="${OUTPUTNEW2_ROOT:-${PROJECT_ROOT}/outputs/baseline}"
+export OUTPUT_OVERLAP2_ROOT="${OUTPUT_OVERLAP2_ROOT:-${PROJECT_ROOT}/outputs/continuous}"
+export OUTPUT_OVERLAP_BINARIO2_ROOT="${OUTPUT_OVERLAP_BINARIO2_ROOT:-${PROJECT_ROOT}/outputs/binary}"
+export OUTPUT_OVERLAP_2D2_ROOT="${OUTPUT_OVERLAP_2D2_ROOT:-${PROJECT_ROOT}/outputs/overlap_2d}"
 
 export HF_HOME=${PROJECT_ROOT}/.cache/huggingface
 export TORCH_HOME=${PROJECT_ROOT}/.cache/torch
