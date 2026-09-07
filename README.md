@@ -39,9 +39,19 @@ vpr-overlap-training/
 ├── CITATION.cff
 ├── THIRD_PARTY.md
 ├── CONTRIBUTING.md
+├── environment.yml
 ├── .gitignore
+├── .dockerignore
+│
 ├── config/
 │   └── env.example
+│
+├── patches/
+│   ├── README.md
+│   └── mapillary_sls_numpy_object.patch
+│
+├── scripts/
+│   └── apply_msls_patch.sh
 ├── src/
 │   ├── data/
 │   │   └── generate_msls_positives.py
@@ -71,6 +81,7 @@ vpr-overlap-training/
 ├── docs/
 │   ├── METHOD.md
 │   ├── DATA.md
+│   ├── EXPERIMENTS.md
 │   ├── REPRODUCIBILITY.md
 │   └── RESULTS.md
 └── results/
@@ -201,7 +212,7 @@ A summary of the experimental conclusions is provided in [`docs/RESULTS.md`](doc
 
 Training scripts save:
 
-- one checkpoint per epoch,
+- epoch checkpoints during training, retaining the six most recent ones,
 - the best model according to validation Recall@1,
 - training loss,
 - Recall@1 / Recall@5 / Recall@10,
