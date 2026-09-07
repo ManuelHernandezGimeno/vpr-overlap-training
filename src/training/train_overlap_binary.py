@@ -424,7 +424,14 @@ def get_batch_positive_overlaps(
 # DATASET DE VALIDACIÓN CIUDAD POR CIUDAD
 # ============================================================
 
-VAL_CITIES = ["cph", "sf"]
+VAL_CITIES = [
+    city.strip()
+    for city in os.environ.get(
+        "VAL_CITIES",
+        "cph,sf"
+    ).split(",")
+    if city.strip()
+]
 val_cities = ",".join(VAL_CITIES)
 
 def make_val_packs_citywise(cities, root_dir, transform):
@@ -1178,7 +1185,12 @@ def keep_last_n_checkpoints(checkpoint_dir, n_keep=10):
 # BUCLE DE ENTRENAMIENTO COMPLETO CON EARLY STOPPING
 # Configuración general
 max_epochs = 100
-patience = 10              # <- número de épocas para el criterio de parada
+patience = int(                # <- número de épocas para el criterio de parada
+    os.environ.get(
+        "EARLY_STOPPING_PATIENCE",
+        "10"
+    )
+)             
 min_delta = 0.001
 
 batch_size = 32
