@@ -48,7 +48,7 @@ fi
 
 if [ ! -f "${ANALYSIS_SCRIPT}" ]; then
     echo "ERROR: no se encuentra el script: ${ANALYSIS_SCRIPT}"
-    echo "Archivos disponibles:"
+    echo "Available files in src/:"
     ls -lah src/analysis || true
     exit 1
 fi
