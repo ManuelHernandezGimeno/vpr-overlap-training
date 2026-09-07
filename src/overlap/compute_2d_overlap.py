@@ -332,9 +332,9 @@ def compute_fov_overlap_2d(
         "polygon_intersection": inter
     }
 
-# Función para detectar lugares de más de 11 imagenes y dividirlos
+# Función para detectar lugares de más de X imagenes y dividirlos
 
-def split_positives_into_balanced_blocks(positive_paths, max_total_images_per_block=11):
+def split_positives_into_balanced_blocks(positive_paths, max_total_images_per_block):
     """
     Divide los positivos en bloques equilibrados.
 
