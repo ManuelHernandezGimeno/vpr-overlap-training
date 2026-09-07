@@ -1,9 +1,9 @@
 experiment,method,recall_at_1,recall_at_5,recall_at_10
-experiment_1,baseline,,65.5,77.3,78.7
-experiment_1,continuous_overlap,,68.1,79.3,83.7
-experiment_1,binary_overlap,,68.5,78.5,81.7
-experiment_1,overlap_2d,,67.9,80.1,83.9
-experiment_2,baseline,,64.9,79.1,82.7
-experiment_2,continuous_overlap,,69.7,80.9,85.1
-experiment_2,binary_overlap,,69.9,79.1,82.5
-experiment_2,overlap_2d,,68.7,81.3,84.5
+experiment_1,baseline,65.5,77.3,78.7
+experiment_1,continuous_overlap,68.1,79.3,83.7
+experiment_1,binary_overlap,68.5,78.5,81.7
+experiment_1,overlap_2d,67.9,80.1,83.9
+experiment_2,baseline,64.9,79.1,82.7
+experiment_2,continuous_overlap,69.7,80.9,85.1
+experiment_2,binary_overlap,69.9,79.1,82.5
+experiment_2,overlap_2d,68.7,81.3,84.5
