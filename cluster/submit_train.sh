@@ -9,6 +9,7 @@
 #SBATCH --mem=96G
 #SBATCH --gres=gpu:1
 #SBATCH --gres-flags=disable-binding
+#SBATCH --export=ALL
 
 set -e
 
