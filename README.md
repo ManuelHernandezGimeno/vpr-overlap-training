@@ -1,4 +1,4 @@
-# Overlap-Aware Training for Visual Place Recognition
+# Training Visual Place Recognition Models Using View Overlap
 
 Code, documentation, and quantitative results developed for a Bachelor's Thesis on **Visual Place Recognition (VPR)** at the University of Zaragoza.
 
