@@ -355,7 +355,7 @@ Experiment 1:
 ```bash
 export VAL_CITIES=cph,sf
 export EARLY_STOPPING_PATIENCE=20
-export OUTPUT_OVERLAP2_ROOT="${PWD}/outputs/variability/patience_20/continuous"
+export OUTPUT_OVERLAP2_ROOT="outputs/variability/patience_20/continuous"
 
 sbatch cluster/submit_train.sh     src/training/train_overlap_continuous.py
 ```
@@ -365,7 +365,7 @@ Experiment 2:
 ```bash
 export VAL_CITIES=cph
 export EARLY_STOPPING_PATIENCE=10
-export OUTPUT_OVERLAP2_ROOT="${PWD}/outputs/variability/copenhagen_only/continuous"
+export OUTPUT_OVERLAP2_ROOT="outputs/variability/copenhagen_only/continuous"
 
 sbatch cluster/submit_train.sh     src/training/train_overlap_continuous.py
 ```
