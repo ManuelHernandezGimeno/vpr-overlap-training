@@ -3,8 +3,8 @@
 #SBATCH -N 1
 #SBATCH --job-name="vpr_train_mhernang"
 #SBATCH --ntasks=1
-#SBATCH --output=/raid/ropert/mhernang/VPR/slurm_jobs/slurm_train_%j.out
-#SBATCH --error=/raid/ropert/mhernang/VPR/slurm_jobs/slurm_train_%j.err
+#SBATCH --output=slurm_train_%j.out
+#SBATCH --error=slurm_train_%j.err
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=96G
 #SBATCH --gres=gpu:1
@@ -13,16 +13,19 @@
 set -e
 
 # Root folders in the DGX host
-USER_VPR_ROOT=/raid/ropert/mhernang/VPR
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 DATA_VPR_LINK=${USER_VPR_ROOT}/data_vpr
-MAPILLARY_ROOT=$(readlink -f ${DATA_VPR_LINK}/mapillary)
-CONTAINER_IMAGE=${USER_VPR_ROOT}/docker/vpr_train_mhernang+latest.sqsh
+MSLS_HOST_ROOT="${MSLS_HOST_ROOT:?Set MSLS_HOST_ROOT before submitting the job}"
+CONTAINER_IMAGE="${CONTAINER_IMAGE:-${REPO_ROOT}/cluster/container/vpr-overlap-training+latest.sqsh}"
+CONTAINER_PROJECT_ROOT=/workspace/vpr-overlap-training
+CONTAINER_MSLS_ROOT=/data/msls
 
 mkdir -p ${USER_VPR_ROOT}/slurm_jobs
 mkdir -p ${USER_VPR_ROOT}/data/mapillary
 
 if [ ! -d "${MAPILLARY_ROOT}" ]; then
-    echo "ERROR: no se encuentra Mapillary en ${MAPILLARY_ROOT}"
+    echo "ERROR: no se encuentra Mapillary en ${MSLS_HOST_ROOT}"
     echo "Comprueba el enlace: ${DATA_VPR_LINK}"
     exit 1
 fi
@@ -35,7 +38,7 @@ fi
 
 
 srun \
---container-mounts=${USER_VPR_ROOT}:/workspace/mhernang/VPR,${MAPILLARY_ROOT}:/workspace/mhernang/VPR/data/mapillary \
---container-workdir=/workspace/mhernang/VPR \
---container-image=${CONTAINER_IMAGE} \
-bash /workspace/mhernang/VPR/train_job.sh "$@"
+    --container-mounts="${REPO_ROOT}:${CONTAINER_PROJECT_ROOT},${MSLS_HOST_ROOT}:${CONTAINER_MSLS_ROOT}" \
+    --container-workdir="${CONTAINER_PROJECT_ROOT}" \
+    --container-image="${CONTAINER_IMAGE}" \
+    bash "${CONTAINER_PROJECT_ROOT}/cluster/run_train_job.sh" "$@"
