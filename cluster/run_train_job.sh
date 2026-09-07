@@ -50,7 +50,7 @@ mkdir -p \
 
 
 # Script to run. Default can be changed, or passed from sbatch:
-# sbatch train.sh code/train_overlap_continuo.py
+# sbatch cluster/submit_train.sh src/training/train_overlap_continuous.py
 if [ "$#" -gt 0 ]; then
     TRAIN_SCRIPT="$1"
     shift
