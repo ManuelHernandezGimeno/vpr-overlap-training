@@ -44,3 +44,6 @@ slurm-*.err
 # Temporary files
 *.log
 *.tmp
+
+# Config
+config/env.sh
