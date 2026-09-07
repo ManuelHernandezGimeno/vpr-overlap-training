@@ -1,0 +1,5 @@
+method,best_epoch,recall_at_1,recall_at_5,recall_at_10
+baseline,18,50.0,58.8,60.1
+continuous_overlap,13,51.5,59.9,62.6
+binary_overlap,23,51.5,59.5,62.7
+overlap_2d,27,51.6,60.7,63.5

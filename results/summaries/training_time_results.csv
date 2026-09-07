@@ -1,0 +1,5 @@
+method,best_epoch,time_per_epoch_hours,total_training_time_days
+baseline,18,6.48,7.55
+continuous_overlap,13,6.67,6.39
+binary_overlap,23,6.7,9.22
+overlap_2d,27,6.68,10.31
