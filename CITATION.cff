@@ -1,14 +1,12 @@
 cff-version: 1.2.0
 message: "If you use this software in academic work, please cite this repository and the associated Bachelor's Thesis."
-title: "Overlap-Aware Training for Visual Place Recognition"
+title: "Training Visual Place Recognition Models Using View Overlap"
 authors:
   - family-names: "Hernández Gimeno"
     given-names: "Manuel"
 repository-code: "https://github.com/ManuelHernandezGimeno/vpr-overlap-training"
 url: "https://github.com/ManuelHernandezGimeno/vpr-overlap-training"
 license: MIT
-version: "1.0.0"
-date-released: "2026-09-06"
 keywords:
   - "visual place recognition"
   - "VPR"
