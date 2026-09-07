@@ -85,7 +85,7 @@ Large datasets, VGGT predictions, overlap files, model checkpoints and SLURM log
 
 ```bash
 conda env create -f environment.yml
-conda activate vpr-overlap
+conda activate tfg_vpr
 ```
 
 ### 2. Install MSLS support code
