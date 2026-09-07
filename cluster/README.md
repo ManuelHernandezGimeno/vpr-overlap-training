@@ -75,7 +75,7 @@ Example for binary overlap:
 ```bash
 export VAL_CITIES=cph,sf
 export EARLY_STOPPING_PATIENCE=20
-export OUTPUT_OVERLAP_BINARIO2_ROOT="${PWD}/outputs/variability/patience_20/binary"
+export OUTPUT_OVERLAP_BINARIO2_ROOT="outputs/variability/patience_20/binary"
 
 sbatch cluster/submit_train.sh     src/training/train_overlap_binary.py
 ```
@@ -96,7 +96,7 @@ Example for binary overlap:
 ```bash
 export VAL_CITIES=cph
 export EARLY_STOPPING_PATIENCE=10
-export OUTPUT_OVERLAP_BINARIO2_ROOT="${PWD}/outputs/variability/copenhagen_only/binary"
+export OUTPUT_OVERLAP_BINARIO2_ROOT="outputs/variability/copenhagen_only/binary"
 
 sbatch cluster/submit_train.sh     src/training/train_overlap_binary.py
 ```
