@@ -34,8 +34,8 @@ checkpoints/
 
 # SLURM
 slurm_jobs/
-slurm-*.out
-slurm-*.err
+slurm*.out
+slurm*.err
 
 # Containers
 *.sqsh
