@@ -104,8 +104,7 @@ External repositories:
 /opt/mapillary_sls
 ```
 
-The Docker build must use the repository root as build context because `environment.yml` is stored there.
-
+The Docker build uses `cluster/container/` as its build context, which contains both the Dockerfile and the container-specific environment file.
 ## 9. SLURM
 
 The public SLURM launchers should mount:
