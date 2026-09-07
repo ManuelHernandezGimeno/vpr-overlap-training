@@ -684,81 +684,45 @@ optimizer = torch.optim.Adam(                     # Crea el optimizador Adam que
 
 def msls_triplet_loss_with_overlap(
     descriptors,
-    nNeg,
     positive_overlap,
     margin=0.1,
-    overlap_scale=10.0,
-
-    # Experimento 1
-    random_rescue_zero_overlap=False,
-    zero_overlap_keep_prob=0.10,
-    zero_overlap_weight=0.10,
-    zero_threshold=1e-8,
-
-    # Experimento 2
-    multiply_full_triplet_by_overlap=False
 ):
     """
-    Triplet loss incorporando overlap visual.
+    Compute the overlap-weighted Triplet Loss.
 
-    descriptors: [B, 2+nNeg, D]
-    0: query
-    1: positive
-    2...: negatives
+    Args:
+        descriptors: Tensor of shape [B, 2 + nNeg, D].
+            descriptors[:, 0] contains query descriptors.
+            descriptors[:, 1] contains positive descriptors.
+            descriptors[:, 2:] contains negative descriptors.
 
-    positive_overlap: [B]
-        overlap entre query y positivo.
+        positive_overlap: Tensor of shape [B] containing the
+            continuous visual overlap between each query-positive pair.
 
-    overlap_weight:
-    w = positive_overlap * overlap_scale
+        margin: Triplet Loss margin.
 
-    Si random_rescue_zero_overlap=True:
-        algunos overlaps 0 se sustituyen por zero_overlap_weight antes de escalar.
-
-    Si multiply_full_triplet_by_overlap=True:
-        loss = w * relu(d_pos - d_neg + margin)
-
-    Si multiply_full_triplet_by_overlap=False:
-        loss = relu(w * d_pos - d_neg + margin)
-
+    Returns:
+        loss: Mean overlap-weighted Triplet Loss.
+        overlap_weight: Overlap weight assigned to each triplet.
     """
 
     q = descriptors[:, 0, :]          # Extraemos los descriptores de la query, los positivos y los negativos
     p = descriptors[:, 1, :]
     n = descriptors[:, 2:, :]
+    
+    overlap_weight = (
+        positive_overlap
+        .to(descriptors.device)
+        .view(-1)
+        .clamp(0.0, 1.0)
+    )
 
-    positive_overlap = positive_overlap.to(descriptors.device)
-    positive_overlap = positive_overlap.view(-1).clamp(0.0, 1.0)
+    positive_distance = torch.norm(q - p, p=2, dim=1)  # Calcula la distancia entre cada query y su positivo
 
+    negative_distance = torch.norm(q.unsqueeze(1) - n, p=2, dim=2)  # Calcula la distancia entre cada query y sus negativos
 
-    # Experimento 1: rescatar aleatoriamente algunos overlaps 0
-    # --------------------------------------------------------
-    if random_rescue_zero_overlap:
-        zero_mask = positive_overlap <= zero_threshold
-        random_mask = torch.rand_like(positive_overlap) < zero_overlap_keep_prob
-        rescue_mask = zero_mask & random_mask
-
-        positive_overlap = torch.where(
-            rescue_mask,
-            torch.full_like(positive_overlap, zero_overlap_weight),
-            positive_overlap
-        )
-
-    overlap_weight = positive_overlap * overlap_scale     #Escalamos el overlap por 10
-
-    d_pos = torch.norm(q - p, p=2, dim=1)  # Calcula la distancia entre cada query y su positivo
-
-    d_neg = torch.norm(q.unsqueeze(1) - n, p=2, dim=2)  # Calcula la distancia entre cada query y sus negativos
-
-    if multiply_full_triplet_by_overlap:
-        # Experimento 2:
-        # loss = w * relu(d_pos - d_neg + margin)
-        base_loss = F.relu(d_pos.unsqueeze(1) - d_neg + margin)
-        loss = base_loss * overlap_weight.unsqueeze(1)
-
-    else:
-        d_pos_weighted = d_pos * overlap_weight   #Multiplico la distancia positiva por el overlap escalado
-        loss = F.relu(d_pos_weighted.unsqueeze(1) - d_neg + margin)
+    base_loss = F.relu(positive_distance.unsqueeze(1) - negative_distance + margin)   #Multiplico la distancia positiva por el overlap escalado
+    loss = base_loss * overlap_weight.unsqueeze(1)
 
     return loss.mean(), overlap_weight                                              # Junta todas las pérdidas y calcula la media.
 
@@ -1387,18 +1351,9 @@ for current_epoch in range(start_epoch, max_epochs + 1):
             # Loss triplet con overlap
             loss, overlap_weight = msls_triplet_loss_with_overlap(
                 descriptors=descriptors,
-                nNeg=nNeg,
                 positive_overlap=positive_overlap,
                 margin=0.1,
-                overlap_scale=1.0,
-
-                random_rescue_zero_overlap=False,
-                zero_overlap_keep_prob=0.0,
-                zero_overlap_weight=0.0,
-
-                multiply_full_triplet_by_overlap=True
             )
-
             optimizer.zero_grad(set_to_none=True)         # Borra los gradientes anteriores para no acumularlos en cada actualización
             loss.backward()                               # Calcula cómo debería cambiar cada peso para reducir la pérdida (los gradientes)
             optimizer.step()                              # Actualiza los pesos según los gradientes calculados usando Adam
