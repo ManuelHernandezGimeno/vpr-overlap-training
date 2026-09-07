@@ -88,5 +88,16 @@ if torch.cuda.is_available():
     print('gpu:', torch.cuda.get_device_name(0))
 PY
 
+echo "========================================"
+echo "Training configuration"
+echo "Script: ${TRAIN_SCRIPT}"
+echo "VAL_CITIES: ${VAL_CITIES}"
+echo "EARLY_STOPPING_PATIENCE: ${EARLY_STOPPING_PATIENCE}"
+echo "OUTPUTNEW2_ROOT: ${OUTPUTNEW2_ROOT}"
+echo "OUTPUT_OVERLAP2_ROOT: ${OUTPUT_OVERLAP2_ROOT}"
+echo "OUTPUT_OVERLAP_BINARIO2_ROOT: ${OUTPUT_OVERLAP_BINARIO2_ROOT}"
+echo "OUTPUT_OVERLAP_2D2_ROOT: ${OUTPUT_OVERLAP_2D2_ROOT}"
+echo "========================================"
+
 # -u avoids buffering, so prints appear in the SLURM log while the job runs
 python -u "$TRAIN_SCRIPT" "$@"
