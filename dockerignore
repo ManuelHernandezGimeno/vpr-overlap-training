@@ -1,0 +1,31 @@
+.git
+.gitignore
+.vscode
+.idea
+__pycache__
+*.pyc
+*.pyo
+
+# Local environments and caches
+.venv
+venv
+.env
+.cache
+overlap_cache
+
+# Large datasets and generated data
+data
+datasets
+positives
+overlaps
+outputs
+checkpoints
+results
+
+# Cluster artifacts
+slurm_jobs
+*.out
+*.err
+*.sqsh
+*.sif
+*.log
