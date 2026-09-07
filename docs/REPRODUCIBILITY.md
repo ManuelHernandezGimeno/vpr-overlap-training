@@ -36,7 +36,7 @@ export MAPILLARY_SLS_ROOT=/path/to/mapillary_sls
 export VGGT_ROOT=/path/to/vggt
 
 export POSITIVES_ROOT=${PROJECT_ROOT}/positives
-export TRAIN_POSITIVES_ROO=${POSITIVES_ROOT}/train
+export TRAIN_POSITIVES_ROOT=${POSITIVES_ROOT}/train
 
 export OVERLAP_ROOT=${PROJECT_ROOT}/overlaps/vggt
 export OVERLAP2D_ROOT=${PROJECT_ROOT}/overlaps/2d
