@@ -287,7 +287,7 @@ cd /path/to/vpr-overlap-training
 export MSLS_HOST_ROOT=/path/to/msls
 export EARLY_STOPPING_PATIENCE=20
 export VAL_CITIES=cph,sf
-export OUTPUT_OVERLAP_BINARIO2_ROOT="${PWD}/outputs/variability/patience_20/binary"
+export OUTPUT_OVERLAP_BINARIO2_ROOT="outputs/variability/patience_20/binary"
 
 sbatch cluster/submit_train.sh     src/training/train_overlap_binary.py
 ```
@@ -300,7 +300,7 @@ cd /path/to/vpr-overlap-training
 export MSLS_HOST_ROOT=/path/to/msls
 export EARLY_STOPPING_PATIENCE=10
 export VAL_CITIES=cph
-export OUTPUT_OVERLAP_BINARIO2_ROOT="${PWD}/outputs/variability/copenhagen_only/binary"
+export OUTPUT_OVERLAP_BINARIO2_ROOT="outputs/variability/copenhagen_only/binary"
 
 sbatch cluster/submit_train.sh     src/training/train_overlap_binary.py
 ```
