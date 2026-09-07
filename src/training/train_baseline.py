@@ -854,7 +854,7 @@ import gc
 
 # Configuración general
 max_epochs = 100
-patience = patience = int(             # <- número de épocas para el criterio de parada
+patience = int(             # <- número de épocas para el criterio de parada
     os.environ.get(
         "EARLY_STOPPING_PATIENCE",
         "10"
