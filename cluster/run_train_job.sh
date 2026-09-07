@@ -19,6 +19,11 @@ export TRAIN_POSITIVES_ROOT=${PROJECT_ROOT}/positives/train
 export OVERLAP_ROOT=${PROJECT_ROOT}/overlaps/vggt
 export OVERLAP2D_ROOT=${PROJECT_ROOT}/overlaps/2d
 
+# Experiment configuration
+export VAL_CITIES="${VAL_CITIES:-cph,sf}"
+export EARLY_STOPPING_PATIENCE="${EARLY_STOPPING_PATIENCE:-10}"
+
+# Training outputs
 export OUTPUTNEW2_ROOT="${OUTPUTNEW2_ROOT:-${PROJECT_ROOT}/outputs/baseline}"
 export OUTPUT_OVERLAP2_ROOT="${OUTPUT_OVERLAP2_ROOT:-${PROJECT_ROOT}/outputs/continuous}"
 export OUTPUT_OVERLAP_BINARIO2_ROOT="${OUTPUT_OVERLAP_BINARIO2_ROOT:-${PROJECT_ROOT}/outputs/binary}"
@@ -46,7 +51,11 @@ mkdir -p \
     overlap_cache \
     overlap_cache/plots \
     .cache/huggingface \
-    .cache/torch
+    .cache/torch \
+    "${OUTPUTNEW2_ROOT}" \
+    "${OUTPUT_OVERLAP2_ROOT}" \
+    "${OUTPUT_OVERLAP_BINARIO2_ROOT}" \
+    "${OUTPUT_OVERLAP_2D2_ROOT}"
 
 
 # Script to run. Default can be changed, or passed from sbatch:
