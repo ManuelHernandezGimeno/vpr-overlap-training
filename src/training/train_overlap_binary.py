@@ -1524,18 +1524,14 @@ for current_epoch in range(start_epoch, max_epochs + 1):
         "early_stopping_patience": patience,
         "early_stopping_min_delta": min_delta,
         "epochs_without_improvement": epochs_without_improvement,
-
+        
         "uses_overlap": True,
-        "overlap_experiment": "binary_overlap_mask",
-        "overlap_loss": "binary_overlap_weight * relu(d_pos - d_neg + margin)",
-        "binary_overlap_weight": True,
-        "overlap_scale": 1.0,
-        "overlap_scale_used": False,
-        "overlap_clamp_after_scale": False,
-        "random_rescue_zero_overlap": False,
-        "zero_overlap_keep_prob": 0.0,
-        "zero_overlap_weight": 0.0,
-        "multiply_full_triplet_by_overlap": True,
+        "overlap_source": "VGGT",
+        "overlap_method": "binary",
+        "overlap_root": str(OVERLAP_ROOT),
+        "positives_root": str(POSITIVES_ROOT),
+        "overlap_loss": "binary_weight * relu(d_pos - d_neg + margin)",
+        "binary_rule": "weight = 1 if overlap > 0 else 0",
     }, epoch_checkpoint_path)
 
     print(f"Checkpoint de época guardado en: {epoch_checkpoint_path}")
@@ -1574,16 +1570,12 @@ for current_epoch in range(start_epoch, max_epochs + 1):
             "source_checkpoint": str(epoch_checkpoint_path),
 
             "uses_overlap": True,
-            "overlap_experiment": "binary_overlap_mask",
-            "overlap_loss": "binary_overlap_weight * relu(d_pos - d_neg + margin)",
-            "binary_overlap_weight": True,
-            "overlap_scale": 1.0,
-            "overlap_scale_used": False,
-            "overlap_clamp_after_scale": False,
-            "random_rescue_zero_overlap": False,
-            "zero_overlap_keep_prob": 0.0,
-            "zero_overlap_weight": 0.0,
-            "multiply_full_triplet_by_overlap": True,
+            "overlap_source": "VGGT",
+            "overlap_method": "binary",
+            "overlap_root": str(OVERLAP_ROOT),
+            "positives_root": str(POSITIVES_ROOT),
+            "overlap_loss": "binary_weight * relu(d_pos - d_neg + margin)",
+            "binary_rule": "weight = 1 if overlap > 0 else 0",
             "early_stopping_patience": patience,
             "early_stopping_min_delta": min_delta,
         }, BEST_MODEL_FILE)
