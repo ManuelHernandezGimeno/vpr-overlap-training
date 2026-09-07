@@ -14,7 +14,7 @@ set -e
 
 # Root folders in the DGX host
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR}}"
 
 MSLS_HOST_ROOT="${MSLS_HOST_ROOT:?Set MSLS_HOST_ROOT before submitting the job}"
 
@@ -38,6 +38,11 @@ if [ ! -f "${CONTAINER_IMAGE}" ]; then
     exit 1
 fi
 
+if [ ! -d "${REPO_ROOT}/src" ]; then
+    echo "ERROR: repository root not found at ${REPO_ROOT}"
+    echo "Submit the job from the repository root or set REPO_ROOT explicitly."
+    exit 1
+fi
 
 srun \
     --container-mounts="${REPO_ROOT}:${CONTAINER_PROJECT_ROOT},${MSLS_HOST_ROOT}:${CONTAINER_MSLS_ROOT}" \
