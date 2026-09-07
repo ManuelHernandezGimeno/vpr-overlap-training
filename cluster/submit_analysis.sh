@@ -12,7 +12,7 @@ set -euo pipefail
 
 # Root folders in the DGX host
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR}}"
 
 CONTAINER_PROJECT_ROOT=/workspace/vpr-overlap-training
 
@@ -23,6 +23,12 @@ mkdir -p "${REPO_ROOT}/slurm_jobs"
 if [ ! -f "${CONTAINER_IMAGE}" ]; then
     echo "ERROR: no se encuentra la imagen:"
     echo "${CONTAINER_IMAGE}"
+    exit 1
+fi
+
+if [ ! -d "${REPO_ROOT}/src" ]; then
+    echo "ERROR: repository root not found at ${REPO_ROOT}"
+    echo "Submit the job from the repository root or set REPO_ROOT explicitly."
     exit 1
 fi
 
