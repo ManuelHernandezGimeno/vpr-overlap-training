@@ -35,7 +35,7 @@ fi
 
 if [ ! -f "${CONTAINER_IMAGE}" ]; then
     echo "ERROR: no se encuentra la imagen del contenedor en ${CONTAINER_IMAGE}"
-    echo "Ejecuta primero docker/build.sh y docker/enroot.sh"
+    echo "Run cluster/container/build.sh and cluster/container/enroot.sh first."
     exit 1
 fi
 
